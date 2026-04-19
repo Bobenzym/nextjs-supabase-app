@@ -4,8 +4,8 @@
 // ============================================================
 "use server";
 
-import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
+import { createClient } from "@/lib/supabase/server";
 import type { ProfileFormState, ProfileUpdate } from "@/types/database";
 
 /**
@@ -15,7 +15,7 @@ import type { ProfileFormState, ProfileUpdate } from "@/types/database";
  */
 export async function updateProfileAction(
   _prevState: ProfileFormState,
-  formData: FormData
+  formData: FormData,
 ): Promise<ProfileFormState> {
   const supabase = await createClient();
 

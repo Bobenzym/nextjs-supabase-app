@@ -1,0 +1,2 @@
+# Windows에서 husky hooks의 CRLF 변환 방지
+.husky/* text eol=lf

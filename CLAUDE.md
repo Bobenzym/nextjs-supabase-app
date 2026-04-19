@@ -97,11 +97,11 @@ export default async function Page({
   params,
   searchParams,
 }: {
-  params: Promise<{ id: string }>
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  const { id } = await params
-  const query = await searchParams
+  const { id } = await params;
+  const query = await searchParams;
   // ...
 }
 ```
@@ -117,7 +117,7 @@ export default async function Page({
 export async function updateProfile(formData: FormData) {
   const supabase = await createClient()
   const name = formData.get('name') as string
-  
+
   await supabase.from('users').update({ name }).eq('id', userId)
   revalidatePath('/profile')
 }
@@ -134,12 +134,12 @@ export async function updateProfile(formData: FormData) {
 `lib/supabase/server.ts`의 `createClient()` 사용 (매 함수마다 새로 생성):
 
 ```typescript
-import { createClient } from '@/lib/supabase/server'
+import { createClient } from "@/lib/supabase/server";
 
 export async function getUser() {
-  const supabase = await createClient()
-  const { data } = await supabase.auth.getUser()
-  return data.user
+  const supabase = await createClient();
+  const { data } = await supabase.auth.getUser();
+  return data.user;
 }
 ```
 
@@ -155,11 +155,11 @@ export async function getUser() {
 
 ```typescript
 // ✅ 올바른 방법
-import { Button } from '@/components/ui/button'
-import { cn } from '@/lib/utils'
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 // ❌ 금지
-import { Button } from '../../../components/ui/button'
+import { Button } from "../../../components/ui/button";
 ```
 
 ### 컴포넌트 크기 제한
@@ -171,11 +171,17 @@ import { Button } from '../../../components/ui/button'
 
 ```typescript
 // ✅ 각 컴포넌트가 하나의 명확한 책임
-export function UserAvatar({ user }) { /* 아바타만 */ }
-export function UserStatus({ isOnline }) { /* 상태만 */ }
+export function UserAvatar({ user }) {
+  /* 아바타만 */
+}
+export function UserStatus({ isOnline }) {
+  /* 상태만 */
+}
 
 // ❌ 피해야 할 패턴: 너무 많은 책임
-export function UserCard({ user }) { /* 아바타 + 상태 + 프로필 + 액션... */ }
+export function UserCard({ user }) {
+  /* 아바타 + 상태 + 프로필 + 액션... */
+}
 ```
 
 ## Tailwind CSS & shadcn/ui

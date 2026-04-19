@@ -21,7 +21,7 @@ const initialState: ProfileFormState = { success: false, error: null };
 export function ProfileEditForm({ profile }: ProfileEditFormProps) {
   const [state, formAction, isPending] = useActionState(
     updateProfileAction,
-    initialState
+    initialState,
   );
 
   return (
