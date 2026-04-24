@@ -32,3 +32,9 @@ export async function createClient() {
     },
   );
 }
+
+export async function getClaims() {
+  const supabase = await createClient();
+  const { data } = await supabase.auth.getClaims();
+  return data?.claims || null;
+}

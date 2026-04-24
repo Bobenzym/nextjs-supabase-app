@@ -10,10 +10,148 @@ export type Database = {
   // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgresVersion: "14.5";
+    PostgrestVersion: "14.5";
   };
   public: {
     Tables: {
+      carpools: {
+        Row: {
+          created_at: string | null;
+          driver_id: string | null;
+          event_id: string;
+          id: string;
+          note: string | null;
+          passenger_id: string | null;
+          status: string | null;
+        };
+        Insert: {
+          created_at?: string | null;
+          driver_id?: string | null;
+          event_id: string;
+          id?: string;
+          note?: string | null;
+          passenger_id?: string | null;
+          status?: string | null;
+        };
+        Update: {
+          created_at?: string | null;
+          driver_id?: string | null;
+          event_id?: string;
+          id?: string;
+          note?: string | null;
+          passenger_id?: string | null;
+          status?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "carpools_driver_id_fkey";
+            columns: ["driver_id"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "carpools_event_id_fkey";
+            columns: ["event_id"];
+            isOneToOne: false;
+            referencedRelation: "events";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "carpools_passenger_id_fkey";
+            columns: ["passenger_id"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      event_members: {
+        Row: {
+          created_at: string | null;
+          event_id: string;
+          id: string;
+          status: string | null;
+          user_id: string;
+        };
+        Insert: {
+          created_at?: string | null;
+          event_id: string;
+          id?: string;
+          status?: string | null;
+          user_id: string;
+        };
+        Update: {
+          created_at?: string | null;
+          event_id?: string;
+          id?: string;
+          status?: string | null;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "event_members_event_id_fkey";
+            columns: ["event_id"];
+            isOneToOne: false;
+            referencedRelation: "events";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "event_members_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      events: {
+        Row: {
+          created_at: string | null;
+          description: string | null;
+          event_date: string;
+          host_id: string;
+          id: string;
+          location: string | null;
+          max_members: number | null;
+          status: string | null;
+          title: string;
+          updated_at: string | null;
+        };
+        Insert: {
+          created_at?: string | null;
+          description?: string | null;
+          event_date: string;
+          host_id: string;
+          id?: string;
+          location?: string | null;
+          max_members?: number | null;
+          status?: string | null;
+          title: string;
+          updated_at?: string | null;
+        };
+        Update: {
+          created_at?: string | null;
+          description?: string | null;
+          event_date?: string;
+          host_id?: string;
+          id?: string;
+          location?: string | null;
+          max_members?: number | null;
+          status?: string | null;
+          title?: string;
+          updated_at?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "events_host_id_fkey";
+            columns: ["host_id"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       profiles: {
         Row: {
           avatar_url: string | null;
@@ -46,6 +184,38 @@ export type Database = {
           website?: string | null;
         };
         Relationships: [];
+      };
+      settlements: {
+        Row: {
+          created_at: string | null;
+          event_id: string;
+          id: string;
+          note: string | null;
+          total_cost: number;
+        };
+        Insert: {
+          created_at?: string | null;
+          event_id: string;
+          id?: string;
+          note?: string | null;
+          total_cost: number;
+        };
+        Update: {
+          created_at?: string | null;
+          event_id?: string;
+          id?: string;
+          note?: string | null;
+          total_cost?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "settlements_event_id_fkey";
+            columns: ["event_id"];
+            isOneToOne: false;
+            referencedRelation: "events";
+            referencedColumns: ["id"];
+          },
+        ];
       };
     };
     Views: {
